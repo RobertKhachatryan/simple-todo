@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { TodoItem } from "./item/TodoItem";
+import { CreateTodoField } from "./CreateTodoFiled/CreateTodoField";
 
 const data = [
   {
@@ -29,8 +30,11 @@ export const Home = () => {
     setTodos(copy);
   };
 
+  const removeTodoItem = (id) =>
+    setTodos([...todos].filter((todo) => todo.id !== id));
+
   return (
-    <div className=" text-white w-4/5 mx-auto">
+    <div className=" text-white w-11/12 mx-auto">
       <h1 className="text-2xl font-bold text-center mb-10">TODO</h1>
       {todos.map((todo) => {
         return (
@@ -38,9 +42,11 @@ export const Home = () => {
             key={todo.id * Math.random()}
             todo={todo}
             changeTodoState={changeTodoState}
+            removeTodoItem={removeTodoItem}
           />
         );
       })}
+      <CreateTodoField setTodos={setTodos} />
     </div>
   );
 };
